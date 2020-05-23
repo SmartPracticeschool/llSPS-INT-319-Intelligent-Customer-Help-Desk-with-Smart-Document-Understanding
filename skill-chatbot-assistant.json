@@ -1,0 +1,414 @@
+{
+  "intents": [
+    {
+      "intent": "Greeting",
+      "examples": [
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Good morning"
+        },
+        {
+          "text": "Hey there!"
+        },
+        {
+          "text": "Hi"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Small_talk",
+      "examples": [
+        {
+          "text": "How are you?"
+        },
+        {
+          "text": "Are you well today?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Thanks",
+      "examples": [
+        {
+          "text": "gracias"
+        },
+        {
+          "text": "Thank you very much"
+        },
+        {
+          "text": "Thanks for your help"
+        },
+        {
+          "text": "Thanks a lot!"
+        },
+        {
+          "text": "thank you"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Goodbye",
+      "examples": [
+        {
+          "text": "Bye bye!"
+        },
+        {
+          "text": "Goodbye!"
+        },
+        {
+          "text": "Thanks for the help!"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Product_info",
+      "examples": [
+        {
+          "text": "How do I access the settings?"
+        },
+        {
+          "text": "How do I set the time?"
+        },
+        {
+          "text": "How do I turn on the heater?"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "teller",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "teller",
+          "synonyms": [
+            "desk",
+            "betting table",
+            "counter",
+            "clerk",
+            "cashier"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "bets",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "exacta",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "superfecta",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "trifecta",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "place",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "show",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "win",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Pick 6",
+          "synonyms": [
+            "pick6"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "racetrack",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "track",
+          "synonyms": [
+            "horse racing",
+            "harness racing",
+            "raceway"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "https://eu-gb.functions.cloud.ibm.com/api/v1/web/h.h.ashar%40gmail.com_dev/default/action_for_discovery.json",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Try again later"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_4_1590093624610",
+      "conditions": "anything_else",
+      "dialog_node": "response_4_1590093886729",
+      "previous_sibling": "response_5_1590093883933"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$webhook_result_1"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_4_1590093624610",
+      "conditions": "$webhook_result_1",
+      "dialog_node": "response_5_1590093883933"
+    },
+    {
+      "type": "standard",
+      "title": "Small Talk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I am very good today, thank you."
+              },
+              {
+                "text": "I'm always fine, since I am a robot."
+              },
+              {
+                "text": "Alert and ready to be of help to you!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Small_talk",
+      "dialog_node": "node_9_1590240303027",
+      "previous_sibling": "node_5_1590240199559"
+    },
+    {
+      "type": "standard",
+      "title": "Goodbye",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Pleasure talking to you!"
+              },
+              {
+                "text": "Get back whenever you need help?"
+              },
+              {
+                "text": "Bye! Glad I could help."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#Goodbye",
+      "dialog_node": "node_5_1590240199559",
+      "previous_sibling": "node_8_1589573825875"
+    },
+    {
+      "type": "standard",
+      "title": "Greeting",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi there!"
+              },
+              {
+                "text": "Hello!"
+              },
+              {
+                "text": "Hello there!"
+              },
+              {
+                "text": "Hey!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#Greeting",
+      "dialog_node": "node_8_1589573825875",
+      "previous_sibling": "node_9_1589573930148"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_9_1590240303027",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Thank you",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Glad to be of assistance!"
+              },
+              {
+                "text": "You're very welcome!"
+              },
+              {
+                "text": "Anytime!"
+              },
+              {
+                "text": "My pleasure!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Thanks",
+      "dialog_node": "node_9_1589573930148",
+      "previous_sibling": "node_4_1590093624610"
+    },
+    {
+      "type": "standard",
+      "title": "Ask about product",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "input": "<?input.text?>"
+          },
+          "result_variable": "webhook_result_1"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Product_info",
+      "dialog_node": "node_4_1590093624610",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "chatbot-assistant",
+  "language": "en",
+  "description": ""
+}
